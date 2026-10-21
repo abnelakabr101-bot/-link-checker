@@ -1,7 +1,7 @@
-
 import logging
 import re
 import threading
+import requests
 from urllib.parse import urlparse
 from flask import Flask
 from telegram import Update
@@ -11,10 +11,16 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 BOT_TOKEN = "8888402482:AAFI7DhifyfBt0bQ7I_NrtV78tMJGQSY30I"
 
+# 🔥 سطر التطهير التلقائي الذكي: بيجبر سيرفر تليجرام يطهر البوت ويطرد أي كلبشة قديمة
+try:
+    requests.get(f"https://telegram.org{BOT_TOKEN}/deleteWebhook?drop_pending_updates=True")
+    print("🧹 [SUCCESS] Telegram Bot Has Been Purged Successfully!")
+except Exception as e:
+    print(f"⚠️ Purge Error: {e}")
+
 SUSPICIOUS_DOMAINS = ['.icu', '.xyz', '.top', '.click', '.club', '.online', '.site', '.tech', '.space', '.website', '.fun', '.info', '.live', '.cc', '.ru', '.tk', '.ml', '.ga', '.cf', '.gq', '.link', '.zip', '.mov', '.download']
 DANGER_KEYWORDS = ['login', 'signin', 'free-followers', 'gift-card', 'winning-prize', 'pubg-free', 'شحن-مجاني', 'تسجيل-الدخول', 'ربح', 'جائزة', 'اختراق', 'هكر', 'predictor', 'aviator', 'darkstore', 'طياره', 'سكربت', 'ثغرة', 'لاين-بيت']
 
-# ويب سيرفر وهمي للضحك على سيرفر Render المجاني
 app = Flask('')
 @app.route('/')
 def home():
@@ -79,3 +85,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+                
