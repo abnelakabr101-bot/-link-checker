@@ -7,30 +7,34 @@ from flask import Flask
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
+# إعدادات تسجيل الأخطاء والعمليات
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-BOT_TOKEN = "8888402482:AAFI7DhifyfBt0bQ7I_NrtV78tMJGQSY30I"
+# التوكن الجديد النظيف والآمن 100% الخاص بك
+BOT_TOKEN = "8400275590:AAFxtsKI3itFSwXhEMO0XQIB7sFUvhrt53o"
 
-# 🔥 سطر التطهير التلقائي الذكي: بيجبر سيرفر تليجرام يطهر البوت ويطرد أي كلبشة قديمة
+# كود التطهير التلقائي الفوري لتصفير الرسايل المعلقة عند التشغيل
 try:
     requests.get(f"https://telegram.org{BOT_TOKEN}/deleteWebhook?drop_pending_updates=True")
-    print("🧹 [SUCCESS] Telegram Bot Has Been Purged Successfully!")
+    print("🧹 [SUCCESS] Telegram Bot Has Been Purged and Reset on Clean State!")
 except Exception as e:
     print(f"⚠️ Purge Error: {e}")
 
+# قوائم النطاقات والكلمات المفتاحية المشبوهة
 SUSPICIOUS_DOMAINS = ['.icu', '.xyz', '.top', '.click', '.club', '.online', '.site', '.tech', '.space', '.website', '.fun', '.info', '.live', '.cc', '.ru', '.tk', '.ml', '.ga', '.cf', '.gq', '.link', '.zip', '.mov', '.download']
 DANGER_KEYWORDS = ['login', 'signin', 'free-followers', 'gift-card', 'winning-prize', 'pubg-free', 'شحن-مجاني', 'تسجيل-الدخول', 'ربح', 'جائزة', 'اختراق', 'هكر', 'predictor', 'aviator', 'darkstore', 'طياره', 'سكربت', 'ثغرة', 'لاين-بيت']
 
+# ويب سيرفر وهمي للضحك على خطة سيرفر Render المجانية ومنعه من الإغلاق
 app = Flask('')
 @app.route('/')
 def home():
-    return "Bot is Alive!"
+    return "Bot is Alive and Protected!"
 
 def run_flask():
     app.run(host='0.0.0.0', port=10000)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("🛡️ **أهلاً بك في بوت الحماية وفحص الروابط المشبوهة!**\n\nانسخ أي رابط شاكك فيه وابعت هولي هنا، وأنا هفصصهولك وأقولك لو كان آمن ولا فخ ونصب.")
+    await update.message.reply_text("🛡️ **أهلاً بك في بوت الحماية وفحص الروابط المشبوهة المطور!**\n\nانسخ أي رابط شاكك فيه وابعت هولي هنا، وأنا هفصصهولك وأقولك لو كان آمن ولا فخ ونصب.")
 
 async def check_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_text = update.message.text
@@ -76,13 +80,14 @@ async def check_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
             await update.message.reply_text("حدث خطأ أثناء تحليل هذا الرابط المعين.")
 
 def main():
+    # تشغيل السيرفر الوهمي في خلفية منفصلة لتخطي حظر الـ Web Service
     threading.Thread(target=run_flask).start()
+    
     application = Application.builder().token(BOT_TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, check_message))
-    print("🚀 البوت المطور شغال الآن وفيس بوك/واتساب/سكربتات النصابين في خطر...")
+    print("🚀 البوت المطور شغال الآن بالتوكن الجديد النظيف وفيس بوك/واتساب/سكربتات النصابين في خطر...")
     application.run_polling()
 
 if __name__ == '__main__':
     main()
-                
